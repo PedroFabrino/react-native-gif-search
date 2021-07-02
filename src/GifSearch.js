@@ -52,6 +52,8 @@ class GifSearch extends PureComponent {
     constructor(props) {
       super(props);
 
+      console.log('props', props)
+
       this.gifsToLoad = 15;
       if (props.gifsToLoad != null) {
           this.gifsToLoad = props.gifsToLoad;
@@ -153,6 +155,9 @@ class GifSearch extends PureComponent {
       this.giphyGifPreview = giphyFormats[this.previewGifQuality];
       this.giphyGifSelected = giphyFormats[this.selectedGifQuality];
 
+      if (props.initialSearch) {
+        this.initialSearch = props.initialSearch
+      }
             
       this.state = {
         gifs: [],
@@ -306,9 +311,8 @@ class GifSearch extends PureComponent {
 
       } else if (endpoint == endpoints.SEARCH) {
 
-          var searchTerm = "money"
+          var searchTerm = this.initialSearch
           if (this.state.search_term !== undefined && this.state.search_term !== "") searchTerm = this.state.search_term
-          console.log('search term', searchTerm)
 
           return Requests.fetch("GET", base_url + "search", {
               "api_key": this.giphyApiKey,
