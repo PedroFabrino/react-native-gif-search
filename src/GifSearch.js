@@ -179,11 +179,11 @@ class GifSearch extends PureComponent {
 
   refreshGifs = () => {
       this.setState({fetching: true, gifsOver: false, noGifsFound: false})
-      if (this.state.search_term == ""){
-          this.showGifs(endpoints.TRENDING)
-      } else {
+    //   if (this.state.search_term == ""){
+    //       this.showGifs(endpoints.TRENDING)
+    //   } else {
           this.showGifs(endpoints.SEARCH)
-      }
+    //   }
   }
 
   handleRequestResponses = (tenorResponseJSON, giphyResponseJSON) => {
@@ -306,9 +306,13 @@ class GifSearch extends PureComponent {
 
       } else if (endpoint == endpoints.SEARCH) {
 
+          var searchTerm = "money"
+          if (this.state.search_term !== undefined && this.state.search_term !== "") searchTerm = this.state.search_term
+          console.log('search term', searchTerm)
+
           return Requests.fetch("GET", base_url + "search", {
               "api_key": this.giphyApiKey,
-              "q": this.state.search_term,
+              "q": searchTerm,
               "limit": limit,
               "rating": "pg",
               "offset": this.state.offset,
